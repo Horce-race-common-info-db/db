@@ -1,9 +1,10 @@
 version: "3"
 services:
-  mysql:
+  db:
     build: ./
     volumes:
-      - ./mysql/db:/docker-entrypoint-initdb.d
+      - db-store:/var/lib/mysql
+      - ./initdb.d:/docker-entrypoint-initdb.d
     image: mysql
     platform: linux/amd64
     ports:
@@ -13,3 +14,6 @@ services:
       - "MYSQL_DATABASE=${MYSQL_DATABASE}"
       - "MYSQL_USER=${MYSQL_USER}"
       - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+
+volumes:
+  db-store:
