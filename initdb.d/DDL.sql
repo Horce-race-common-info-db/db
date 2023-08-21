@@ -94,9 +94,9 @@ CREATE TABLE races
 (
   id bigint(20) unsigned AUTO_INCREMENT PRIMARY KEY,
   held_id bigint(20) unsigned NOT NULL,
-  course_id int(8) unsigned NOT NULL,
+  course_id int(8) unsigned,
   race_round tinyint NOT NULL,
-  name varchar(20) NOT NULL,
+  name varchar(20),
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL,
 
@@ -141,6 +141,21 @@ CREATE TABLE confirmed_barriers
   run_id bigint(20) unsigned PRIMARY KEY,
   bracket_number tinyint unsigned NOT NULL,
   horse_number tinyint unsigned NOT NULL,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL,
+
+  INDEX run_index (run_id),
+
+  FOREIGN KEY (run_id) 
+    REFERENCES runs(id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE results
+(
+  id bigint(20) unsigned AUTO_INCREMENT PRIMARY KEY,
+  run_id bigint(20) unsigned NOT NULL,
+  place tinyint unsigned NOT NULL,
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL,
 
